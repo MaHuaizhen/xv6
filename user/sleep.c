@@ -16,7 +16,7 @@ int main(int argc, char*argv[])
 {
 	int sleep_num = 0;
 	int argv_cov;
-	printf("running sleep program!\n");
+	printf("running sleep program!,argc:%d\n",argc);// argc means arrary's number
 	for (int i = 0; i < argc ; i ++)
 	{
 		argv_cov = sleep_atoi(argv[i]);
