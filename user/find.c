@@ -26,8 +26,9 @@ void exec_find(char *path,char *findTar)
     int i = 0;
     char buf[50];
     struct dirent de;
-    //char *pathdes;
     struct stat st;
+    int fd1;
+    struct stat st1;
     if((fd = open(path,0))< 0)
     {
         printf("file cannot open:%s\n",path);
@@ -41,24 +42,12 @@ void exec_find(char *path,char *findTar)
         close(fd);
         return;
     }
-
     //printf("path type:%d\n",st.type);
     switch(st.type)
     {
         case T_FILE:
         {
             printf("Given path not a directory\n");
-            // read(fd,&de,sizeof(de));
-            // printf("de.name:%s,de.iunm:%d,line50\n",de.name,de.inum);
-            // if(0 == strcmp(de.name,findTar))
-            // {
-            //     //printf("target %s not find at path %s\n",findTar,path);
-            //     printf("%s/%s,line52\n",path,findTar);
-            // }
-            // else
-            // {
-            //     //printf("%s/%s\n",path,findTar);
-            // }
         }break;
         case T_DIR://"."
         {
@@ -91,8 +80,7 @@ void exec_find(char *path,char *findTar)
                 //printf("buf after:%s\n",buf);
                 //buf[50]= buf[strlen(buf)]+de.name;
                 
-                int fd1;
-                struct stat st1;
+
 
                 //struct dirent de1;
                 if(((strcmp(de.name,".") != 0)) && ((strcmp(de.name,"..") != 0)) &&((strcmp(de.name,"") != 0)))
@@ -134,7 +122,7 @@ void exec_find(char *path,char *findTar)
                             }break;
                             case T_DIR:
                             {
-                                printf("de.name:%s lin137\n",de.name);
+                                //printf("de.name:%s lin137\n",de.name);
                                 exec_find(buf,findTar);
                             }break;
                             default:
