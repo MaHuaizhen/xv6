@@ -60,7 +60,7 @@ void exec_find(char *path,char *findTar)
             // p=buf+strlen(buf);
             // *p++ = '/';
             // buf[strlen(buf)+1] = '/';
-            while(read(fd,&de,sizeof(de))==sizeof(de))
+            while(read(fd,&de,sizeof(de))==sizeof(de))//open the path and store it at arrary,with the type dirent, read function read it with the sizeof de one time
             {
                 //printf("de.num:%d,de.name:%s,sizeof(de):%d,line71\n",de.inum,de.name,sizeof(de));
                 //memmove(&(buf[strlen(buf)+2]), de.name, strlen(de.name));
