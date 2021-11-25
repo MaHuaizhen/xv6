@@ -99,6 +99,13 @@ sys_uptime(void)
 uint64 sys_trace()
 {
   int SysMask = 0;
-  trace(SysMask);
+  struct proc *p = myproc();
+
+  if(argint(0, &SysMask) < 0)
+  {
+    return -1;
+  }
+  p->traceMask = SysMask;
+  // trace(SysMask);user 空间调用trace通过ecall调用sys_trace ?
   return 0;
 }
