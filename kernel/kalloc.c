@@ -80,3 +80,16 @@ kalloc(void)
     memset((char*)r, 5, PGSIZE); // fill with junk
   return (void*)r;
 }
+
+int collFreeMem()
+{
+  void *freememptr;
+  int freemem;
+  acquire(&kmem.lock);
+  freememptr = kmem.freelist;
+  release(&kmem.lock);
+  freemem = (void*)PHYSTOP - freememptr;
+  //printf("freelist end：%p\n",(void*)PHYSTOP);
+  //printf("freelist addr：%p\n",freememptr);
+  return freemem;
+}

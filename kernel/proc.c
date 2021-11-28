@@ -694,3 +694,18 @@ procdump(void)
     printf("\n");
   }
 }
+uint64 coll_proNumUnused()
+ {
+    struct proc *p;
+    uint64 pronum = 0;
+    for(p = proc; p < &proc[NPROC]; p++) 
+    {
+      acquire(&p->lock);
+      if(p->state != UNUSED) 
+      {
+        pronum ++;
+      }
+      release(&p->lock);
+    }
+    return pronum;
+ }

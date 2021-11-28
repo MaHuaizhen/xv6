@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "kernel/sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -107,5 +108,23 @@ uint64 sys_trace()
   }
   p->traceMask = SysMask;
   // trace(SysMask);user 空间调用trace通过ecall调用sys_trace ?
+  return 0;
+}
+
+uint64 sys_sysinfo(void)
+{
+  struct sysinfo info;
+  uint64 addr;
+  struct proc *p = myproc();
+  if(argaddr(0, &addr) < 0) // obtain para address from user space,0 means the first parmeter
+   return -1;
+  info.freemem = collFreeMem();
+  info.nproc = coll_proNumUnused();
+  if(copyout(p->pagetable, addr, (char*)&info, sizeof(info)) < 0)
+  {
+    printf("copyout fail\n");
+    return -1;
+  }
+
   return 0;
 }

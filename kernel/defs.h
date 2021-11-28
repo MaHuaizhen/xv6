@@ -138,7 +138,8 @@ int             argaddr(int, uint64 *);
 int             fetchstr(uint64, char*, int);
 int             fetchaddr(uint64, uint64*);
 void            syscall();
-
+int             collFreeMem();
+uint64             coll_proNumUnused();
 // trap.c
 extern uint     ticks;
 void            trapinit(void);
