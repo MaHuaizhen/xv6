@@ -83,12 +83,16 @@ kalloc(void)
 
 int collFreeMem()
 {
-  void *freememptr;
-  int freemem;
+  struct run* freememptr;
+  int freemem = 0;
   acquire(&kmem.lock);
   freememptr = kmem.freelist;
+  for(;freememptr;freememptr = freememptr->next)//轮询freelist，直到为空，然后逐个增加pgsize
+  {
+    freemem += PGSIZE;
+  }
   release(&kmem.lock);
-  freemem = (void*)PHYSTOP - freememptr;
+  //freemem = (void*)PHYSTOP - freememptr;
   //printf("freelist end：%p\n",(void*)PHYSTOP);
   //printf("freelist addr：%p\n",freememptr);
   return freemem;
