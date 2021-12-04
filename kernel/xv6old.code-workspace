@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"fs.h": "c",
+			"proc.h": "c",
+			"param.h": "c",
+			"spinlock.h": "c",
+			"stat.h": "c",
+			"sysinfo.h": "c"
+		}
+	}
+}
